@@ -1,0 +1,40 @@
+v4.0.1
++ Fix detection of arc_weak support
+
+v4.0.0
++ Consolidate platform-specific code into a single WebViewJavascriptBridge.m/h using macros (57ee322a4c5310eadd28b28f4d8522cd54123301)
++ Bugfix: Don't make navigation decisions for webviews we don't control (254ea00267f8c1e03727885f4e1e0fd5f5c78be8)
+
+v3.1.0
++ Dont inject the WVJB bridge until all requests have finished loading (61b853)
++ Add podspec file (818d49cfc)
++ Memory leaks fixed (b06988f1, 20ce1b0b)
++ New major contributor @peyton!
+
+v3.0.0
++ OSX Support
++ New major contributor @oakho!
+
+v2.1.2
++ Copy handler and response blocks
+
+v2.1.1
++ Handle edge cases gracefully (e.g. don't crash on unknown command or unexpected response)
+
+v2.1.0
++ Remove WVJBResponse object and the notion of responding with an error. See 4ab41bb4d7.
+
+v2.0.0
++ Messages are objects instead of strings. Supports NSDictionary*/Objects, NSArray*/Arrays, NSNumber*/Number & NSString*/String.
++ Messages are encoded with NSJSONSerialization. Optional fallback to JSONKit for iOS 4 support.
++ Messages can expect responses. A message received with an expected response is accompanied by a WVJBResponse* object.
++ Handlers can be registered by name, and called with data and an optional expected response.
++ Responses expect either an error or data (`-(void)respond:(id)data`, -(void)respondWithError:(id)error)
+
+v0.0.1
++ ObjC: A WebViewJavascriptBridge class (a UIWebViewDelegate) that enables message passing to and from the JS
++ ObjC: A protocol called WebViewJavascriptBridgeDelegate that lets you handle messages received from the JS
++ JS: Event when the bridge is ready - document.addEventListener('WebViewJavascriptBridgeReady', function() {}, false)
++ JS: Ability to set your message handler - WebViewJavascriptBridge.setMessageHandler(function() {})
++ JS: Function to send messages - WebViewJavascriptBridge.sendMessage('a message');
++ All messages are strings. Use JSON in your js and e.g. JSONKit in iOS to send structured messages
