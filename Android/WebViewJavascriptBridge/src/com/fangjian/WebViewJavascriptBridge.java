@@ -49,8 +49,17 @@ public class WebViewJavascriptBridge implements Serializable {
     private void loadWebViewJavascriptBridgeJs(WebView webView) {
         InputStream is=mContext.getResources().openRawResource(R.raw.webviewjavascriptbridge);
         String script=convertStreamToString(is);
-        webView.loadUrl("javascript:"+script);
 
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			webView.evaluateJavascript("javascript:" + script, new ValueCallback<String>() {
+				@Override
+				public void onReceiveValue(String value) {
+					//TODO
+				}
+			});
+		} else {
+			webView.loadUrl("javascript:" + script);
+		}
     }
 
     public static String convertStreamToString(java.io.InputStream is) {
